@@ -58,4 +58,5 @@ Check the green padlock on the left of the URL.
 
 ## References
 ref [1] http://manpages.ubuntu.com/manpages/zesty/man8/resolvconf.8.html
+ref [2] https://curl.haxx.se/docs/manpage.html
 
