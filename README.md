@@ -23,6 +23,7 @@ this means you do not have to add your domains to the /etc/hosts-file
 1. OS :  'Linux Mint 17.3 Rosa'
 2. docker version : 17.05.0-ce 
 3. docker-compose version : 1.16.1, build 6d1ac21
+4. Make : GNU Make 3.81
 
 ## References
 ref [1] http://manpages.ubuntu.com/manpages/zesty/man8/resolvconf.8.html
