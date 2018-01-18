@@ -36,6 +36,7 @@ The reply from the curl-requests should be a valid html-page.
 
 ### curl: if the SSL is NOT valid for the domain(s) 
 $ curl https://naturforskaren.se
+
 curl: (7) Failed to connect to naturforskaren.se port 443: Connection refused
 
 the reply will be a HTTP 443.
