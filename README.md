@@ -6,6 +6,8 @@ This project spins up a number of webservers each with a domain&subdomains.
 The proxy-server handles the certs (put your certs in the 'certs'-directory)
 
 ## pre-requirements
+You need to have docker,docker-compose and make installed.
+
 if running on Linux.<br>
 the dnsmasq could require the following changes:
 
