@@ -9,8 +9,17 @@ The proxy-server handles the certs (put your certs in the 'certs'-directory)
 if running on Linux.
 the dnsmasq could require the following changes:
 
-edit the file  "/etc/resolvconf/resolvconf.d/head" 
+"/etc/resolvconf/resolvconf.d/head" 
 add the row "nameserver 172.17.0.1"
-So that your host will first check the "dnsmasq"
+and run `$sudo resolvconf -u`
 
+So that your host will first check the "dnsmasq"
+this means you do not have to add your domains to the /etc/hosts-file
+
+## My Machine
+OS :  'Linux Mint 17.3 Rosa'
+docker version : 17.05.0-ce 
+docker-compose version : 1.16.1, build 6d1ac21
+
+ref [1] http://manpages.ubuntu.com/manpages/zesty/man8/resolvconf.8.html
 
