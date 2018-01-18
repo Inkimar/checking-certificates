@@ -57,6 +57,6 @@ Check the green padlock on the left of the URL.
 5. curl : curl 7.35.0
 
 ## References
-ref [1] http://manpages.ubuntu.com/manpages/zesty/man8/resolvconf.8.html
-ref [2] https://curl.haxx.se/docs/manpage.html
+1. ref http://manpages.ubuntu.com/manpages/zesty/man8/resolvconf.8.html
+2. ref  https://curl.haxx.se/docs/manpage.html
 
