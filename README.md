@@ -34,8 +34,10 @@ $ curl https://naturforskaren.se
 
 The reply from the curl-requests should be a valid html-page ("Welcome to nginx!")
 
-if needed the CA-cert must be used with curl (DigitCertCA.crt-file provided by Digicert, included in the zip-file)<br>
-$ curl --cacert DigiCertCA.crt https://naturforskaren.se
+if needed the CA-cert must be used with curl (The DigitCertCA.crt-file was provided by Digicert, included in the zip-file)<br>
+1. $ curl --cacert DigiCertCA.crt https://naturforskaren.se
+2. $ curl --cacert DigiCertCA.crt https://beta.naturforskaren.se
+3. $ curl --cacert DigiCertCA.crt https://www.naturforskaren.se
 
 ### curl: negative test: if the SSL is NOT valid for the domain(s) 
 $ curl https://naturforskaren.se
