@@ -6,12 +6,14 @@ This project spins up a number of webservers each with a domain&subdomains.
 The proxy-server handles the certs (put your certs in the 'certs'-directory)
 
 ## pre-requirements
-if running on Linux.
+if running on Linux.<br>
 the dnsmasq could require the following changes:
 
 "/etc/resolvconf/resolvconf.d/head" 
-add the row "nameserver 172.17.0.1"
-and run `$sudo resolvconf -u`
+add the row "nameserver 172.17.0.1"<br>
+run `$sudo resolvconf -u`
+
+might be needed to restart the docker-daemon ( `sudo service docker restart` / `sudo systemctl status docker.service` ) 
 
 So that your host will first check the "dnsmasq"
 this means you do not have to add your domains to the /etc/hosts-file
