@@ -29,12 +29,15 @@ this example runs 3 webservers with the domains; naturforskaren.se,www.naturfors
 1. curl -L naturforskaren.se
 2. curl https://naturforskaren.se
 
-### curl: If the SSL is valid for the domain(s) 
+### curl: postivie test:  If the SSL is valid for the domain(s) 
 $ curl https://naturforskaren.se
 
 The reply from the curl-requests should be a valid html-page ("Welcome to nginx!")
 
-### curl: if the SSL is NOT valid for the domain(s) 
+if needed the CA-cert must be used with curl (DigitCertCA.crt-file provided by Digicert, included in the zip-file)<br>
+$ curl --cacert DigiCertCA.crt https://naturforskaren.se
+
+### curl: negative test: if the SSL is NOT valid for the domain(s) 
 $ curl https://naturforskaren.se
 
 curl: (7) Failed to connect to naturforskaren.se port 443: Connection refused
