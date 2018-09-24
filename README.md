@@ -29,7 +29,7 @@ this example runs 3 webservers with the domains; naturforskaren.se,www.naturfors
 1. curl -L naturforskaren.se
 2. curl https://naturforskaren.se
 
-### curl: postivie test:  If the SSL is valid for the domain(s) 
+### curl: positive test:  If the SSL is valid for the domain(s) 
 $ curl https://naturforskaren.se
 
 The reply from the curl-requests should be a valid html-page ("Welcome to nginx!")
