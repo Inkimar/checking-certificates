@@ -60,3 +60,104 @@ Check the green padlock on the left of the URL.
 1. ref http://manpages.ubuntu.com/manpages/zesty/man8/resolvconf.8.html
 2. ref  https://curl.haxx.se/docs/manpage.html
 
+
+## 2020-05-07 : comparison
+
+### local machine (ubuntu 19.10)
+
+1. docker -v        
+2. Docker version 19.03.8, build afacb8b7f0
+3. docker-compose -v
+4. docker-compose version 1.23.2, build 1110ad01
+
+
+#### docker-compose-file
+
+```
+version: '3.7'
+
+services:
+
+  proxy:
+    image: jwilder/nginx-proxy:0.4.0
+    container_name: jwilder-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:ro
+      #- ./nginx-proxy.conf:/etc/nginx/conf.d/nginx-proxy.conf:ro
+```
+
+with certs 
+1. md5sum nrm.se.crt -> 6a829a894cc10ee7bf194381318b3b3a  nrm.se.crt
+2. md5sum nrm.se.key -> 1342e55379bf0d9e253a77d02e2c9f01  nrm.se.key
+
+ps -> @docker-compose -f docker-compose.2020.yml ps 
+
+make ps-test                 
+            Name                          Command               State                    Ports                  
+----------------------------------------------------------------------------------------------------------------
+checking-certificates_web3_1   nginx -g daemon off;             Up      80/tcp                                  
+jwilder-proxy                  /app/docker-entrypoint.sh  ...   Up      0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp
+
+***
+Test from curl: `curl - L local.nrm.se` -> det ser rätt ut (301, 200) <p>
+
+jwilder-proxy | nginx.1    | local.nrm.se 172.19.0.1 - - [08/May/2020:09:51:48 +0000] "GET / HTTP/1.1" 301 185 "-" "curl/7.65.3"
+web3_1   | 172.19.0.3 - - [08/May/2020:09:51:48 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.65.3" "172.19.0.1"
+jwilder-proxy | nginx.1    | local.nrm.se 172.19.0.1 - - [08/May/2020:09:51:48 +0000] "GET / HTTP/2.0" 200 770 "-" "curl/7.65.3"
+
+
+Test från firefox -> det ser rätt ut (301,200) <p>
+jwilder-proxy | nginx.1    | local.nrm.se 172.19.0.1 - - [08/May/2020:09:54:09 +0000] "GET / HTTP/1.1" 301 185 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:76.0) Gecko/20100101 Firefox/76.0"
+web3_1   | 172.19.0.3 - - [08/May/2020:09:54:09 +0000] "GET / HTTP/1.1" 200 612 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:76.0) Gecko/20100101 Firefox/76.0" "172.19.0.1"
+jwilder-proxy | nginx.1    | local.nrm.se 172.19.0.1 - - [08/May/2020:09:54:09 +0000] "GET / HTTP/1.1" 200 612 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:76.0) Gecko/20100101 Firefox/76.0"
+
+
+
+### birdringing-machine (ubuntu 18.04.4 LTS)
+ 
+1. docker -v
+2. Docker version 19.03.6, build 369ce74a3c
+3. docker-compose -v
+4. docker-compose version 1.22.0, build f46880fe
+
+#### docker-compose-file
+docker-compose.prod.yml-file → kör både proxy och shiny:
+
+```
+version: '3.7'
+
+services:
+  proxy:
+    image: jwilder/nginx-proxy:0.4.0
+    container_name: jwilder-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:ro
+      - ./nginx-proxy.conf:/etc/nginx/conf.d/nginx-proxy.conf:ro
+```
+
+with certs 
+
+    1. md5sum nrm.se.crt -> 6a829a894cc10ee7bf194381318b3b3a  nrm.se.crt
+    3. md5sum nrm.se.key -> 1342e55379bf0d9e253a77d02e2c9f01  nrm.se.key
+
+### local-machine : daemon.json-file
+
+**/etc/docker/daemon.json**
+
+```    
+{
+    "bip": "172.17.0.1/24",
+    "dns": ["192.168.1.1","172.17.0.1", "172.16.0.5", "172.16.0.6", "8.8.8.8"],
+    "dns-search": ["."]
+}
+```
