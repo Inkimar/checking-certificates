@@ -14,12 +14,19 @@ services:
       - ./certs:/etc/nginx/certs:ro
       #- ./nginx-proxy.conf:/etc/nginx/conf.d/nginx-proxy.conf:ro
 
-  web3:
+  web1:
     image: nginx:alpine
+    container_name: wildcard-local.nrm
     environment:
       - VIRTUAL_HOST=local.nrm.se
 
-  web4:
-    image: nginx:alpine
-    environment:
-      - VIRTUAL_HOST=local.naturforskaren.se
+  #web2:
+  #  image: nginx:alpine
+  #  container_name: wildcard-localagain.nrm
+  #  environment:
+  #    - VIRTUAL_HOST=localagain.nrm.se
+
+  #web3:
+  #  image: nginx:alpine
+  #  environment:
+  #    - VIRTUAL_HOST=local.naturforskaren.se

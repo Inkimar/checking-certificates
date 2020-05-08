@@ -71,7 +71,7 @@ Check the green padlock on the left of the URL.
 4. docker-compose version 1.23.2, build 1110ad01
 
 
-#### docker-compose-file
+#### docker-compose.2020.yml-file - with web
 
 ```
 version: '3.7'
@@ -103,14 +103,16 @@ make ps-test
 checking-certificates_web3_1   nginx -g daemon off;             Up      80/tcp                                  
 jwilder-proxy                  /app/docker-entrypoint.sh  ...   Up      0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp
 
+#### Test with curl and firefox
+
 ***
-Test from curl: `curl - L local.nrm.se` -> det ser rätt ut (301, 200) <p>
+Test from curl: `curl -L local.nrm.se` -> det ser rätt ut (301, 200) <p>
 
 jwilder-proxy | nginx.1    | local.nrm.se 172.19.0.1 - - [08/May/2020:09:51:48 +0000] "GET / HTTP/1.1" 301 185 "-" "curl/7.65.3"
 web3_1   | 172.19.0.3 - - [08/May/2020:09:51:48 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.65.3" "172.19.0.1"
 jwilder-proxy | nginx.1    | local.nrm.se 172.19.0.1 - - [08/May/2020:09:51:48 +0000] "GET / HTTP/2.0" 200 770 "-" "curl/7.65.3"
 
-
+***
 Test från firefox -> det ser rätt ut (301,200) <p>
 jwilder-proxy | nginx.1    | local.nrm.se 172.19.0.1 - - [08/May/2020:09:54:09 +0000] "GET / HTTP/1.1" 301 185 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:76.0) Gecko/20100101 Firefox/76.0"
 web3_1   | 172.19.0.3 - - [08/May/2020:09:54:09 +0000] "GET / HTTP/1.1" 200 612 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:76.0) Gecko/20100101 Firefox/76.0" "172.19.0.1"
@@ -161,3 +163,9 @@ with certs
     "dns-search": ["."]
 }
 ```
+
+
+# commands
+docker rm -f $(docker ps -a -q)
+
+docker ps -a

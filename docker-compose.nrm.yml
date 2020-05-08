@@ -5,7 +5,9 @@ services:
   proxy:
     image: jwilder/nginx-proxy:0.4.0
     container_name: jwilder-proxy
-    restart: always
+    environment: 
+      - VIRTUAL_PROTO=https
+      - VIRTUAL_PORT=443
     ports:
       - "80:80"
       - "443:443"
@@ -19,14 +21,3 @@ services:
     container_name: wildcard-local.nrm
     environment:
       - VIRTUAL_HOST=local.nrm.se
-
-  #web2:
-  #  image: nginx:alpine
-  #  container_name: wildcard-localagain.nrm
-  #  environment:
-  #    - VIRTUAL_HOST=localagain.nrm.se
-
-  #web3:
-  #  image: nginx:alpine
-  #  environment:
-  #    - VIRTUAL_HOST=local.naturforskaren.se
