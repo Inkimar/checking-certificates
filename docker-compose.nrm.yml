@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  proxy:
+    image: jwilder/nginx-proxy:0.4.0
+    container_name: jwilder-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:ro
+      #- ./nginx-proxy.conf:/etc/nginx/conf.d/nginx-proxy.conf:ro
+
+  web1:
+    image: nginx:alpine
+    container_name: wildcard-local.nrm
+    environment:
+      - VIRTUAL_HOST=local.nrm.se
+
+  #web2:
+  #  image: nginx:alpine
+  #  container_name: wildcard-localagain.nrm
+  #  environment:
+  #    - VIRTUAL_HOST=localagain.nrm.se
+
+  #web3:
+  #  image: nginx:alpine
+  #  environment:
+  #    - VIRTUAL_HOST=local.naturforskaren.se

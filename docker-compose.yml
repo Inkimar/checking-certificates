@@ -1,19 +1,19 @@
-version: '3.1'
+version: '3.3'
 
 services:
-      
+
   dnsmasq:
     image: andyshinn/dnsmasq:2.76
-    command: --log-facility=- --server=127.0.0.11 --server=193.10.57.11 --server=8.8.8.8 --server=172.16.0.72 --server=172.16.0.7 --neg-ttl=3600 --cache-size=1000 --max-cache-ttl=3600 --min-cache-ttl=3600 --all-servers
+    command: --log-facility=- --server=8.8.8.8 --neg-ttl=3600 --cache-size=1000 --max-cache-ttl=3600 --min-cache-ttl=3600 --all-servers
     cap_add: 
       - NET_ADMIN
     ports:
       - 172.17.0.1:53:53/tcp
       - 172.17.0.1:53:53/udp
     links:
-      - proxy:naturforskaren.se
-      - proxy:www.naturforskaren.se
-      - proxy:beta.naturforskaren.se
+      - proxy:www.nrm.se
+      - proxy:local.nrm.se
+      - proxy:local.naturforskaren.se
 
   proxy:
     image: jwilder/nginx-proxy:alpine
@@ -24,19 +24,23 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./certs:/etc/nginx/certs
 
-  web1:
-    image: nginx:alpine
-    environment:
-      - VIRTUAL_HOST=naturforskaren.se
-
   web2:
     image: nginx:alpine
     environment:
-      - VIRTUAL_HOST=www.naturforskaren.se
+      - VIRTUAL_HOST=www.nrm.se
 
   web3:
     image: nginx:alpine
     environment:
-      - VIRTUAL_HOST=beta.naturforskaren.se
+      - VIRTUAL_HOST=local.nrm.se
 
+  web4:
+    image: nginx:alpine
+    environment:
+      - VIRTUAL_HOST=local.naturforskaren.se
+
+  web5:
+    image: nginx:alpine
+    environment:
+      - VIRTUAL_HOST=naturforskaren.se
 
